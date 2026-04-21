@@ -1,0 +1,227 @@
+/* ══════════════════════════════════════
+   HOURS
+══════════════════════════════════════ */
+.hours__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* ── Table ── */
+.hours__table-wrap {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-100);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.hours__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hours__row {
+  border-bottom: 1px solid var(--gray-100);
+  transition: background 0.2s ease;
+}
+
+.hours__row:last-child { border-bottom: none; }
+
+.hours__row:hover { background: var(--gray-50); }
+
+.hours__table td {
+  padding: 15px 26px;
+}
+
+.hours__day {
+  font-weight: 700;
+  color: var(--gray-900);
+  width: 96px;
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+}
+
+.hours__time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-500);
+  font-size: 0.9rem;
+}
+
+.hours__icon {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* Night rows */
+.hours__night .hours__day  { color: var(--yonsei-blue); font-weight: 800; }
+.hours__night .hours__time { color: var(--yonsei-blue); font-weight: 600; }
+
+.hours__night-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--yonsei-blue);
+  color: var(--white);
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 50px;
+  margin-left: 6px;
+  letter-spacing: 0.03em;
+}
+
+/* Closed rows */
+.hours__closed { background: var(--gray-50); }
+.hours__closed .hours__day,
+.hours__closed .hours__time { color: var(--gray-300); }
+
+/* ── Emergency box (우측 info 영역 안에 위치) ── */
+.hours__emergency {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, #fff7ed 0%, #fff3e0 100%);
+  border: 1.5px solid #f97316;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 16px rgba(249,115,22,0.12);
+  /* fade-in 애니메이션용 초기값 */
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1);
+}
+.hours__emergency.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hours__emergency-dot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f97316;
+  box-shadow: 0 0 8px rgba(249,115,22,0.6);
+  margin-top: 5px;
+  animation: emergencyPulse 2s ease-in-out infinite;
+}
+
+@keyframes emergencyPulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(249,115,22,0.5); }
+  50%       { box-shadow: 0 0 16px rgba(249,115,22,0.9); }
+}
+
+.hours__emergency-title {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #c2410c;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.hours__emergency-desc {
+  font-size: 0.84rem;
+  color: #9a3412;
+  line-height: 1.55;
+}
+
+/* ── Info Cards ── */
+.hours__info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hours__info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 22px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+
+.hours__info-card:hover {
+  border-color: var(--gray-200);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.hours__info-card--highlight {
+  background: linear-gradient(135deg, var(--yonsei-blue) 0%, var(--yonsei-light) 100%);
+  border-color: var(--yonsei-blue);
+  color: var(--white);
+  box-shadow: 0 8px 24px rgba(0,32,91,0.22);
+}
+
+.hours__info-card--highlight:hover {
+  border-color: var(--yonsei-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(0,32,91,0.28);
+}
+
+.hours__info-icon {
+  color: var(--primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.hours__info-card--highlight .hours__info-icon {
+  color: rgba(255,255,255,0.7);
+}
+
+.hours__info-card h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.hours__info-card p {
+  font-size: 0.84rem;
+  opacity: 0.75;
+  line-height: 1.55;
+}
+
+.hours__phone-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.hours__phone-row h4 {
+  margin-bottom: 0;
+}
+
+.hours__phone-number {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  opacity: 1;
+}
+
+.hours__phone-sub {
+  font-size: 0.82rem;
+  opacity: 0.65;
+  font-weight: 400;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .hours__wrapper {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

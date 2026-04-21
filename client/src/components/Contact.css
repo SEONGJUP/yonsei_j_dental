@@ -1,0 +1,120 @@
+/* ══════════════════════════════════════
+   CONTACT
+══════════════════════════════════════ */
+.contact {
+  background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+}
+
+.contact__wrapper {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 28px;
+  max-width: 1020px;
+  margin: 0 auto;
+}
+
+/* ── Map ── */
+.contact__map {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  min-height: 420px;
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-lg);
+  transition: box-shadow 0.32s ease;
+}
+
+.contact__map:hover { box-shadow: var(--shadow-xl); }
+
+.contact__map iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  display: block;
+}
+
+/* ── Info ── */
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 24px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.contact__item:hover {
+  border-color: var(--gray-200);
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+}
+
+.contact__item-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--yonsei-blue) 0%, var(--yonsei-light) 100%);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(0,32,91,0.2);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.contact__item:hover .contact__item-icon {
+  transform: scale(1.1) rotate(-4deg);
+}
+
+.contact__item h4 {
+  font-size: 0.72rem;
+  color: var(--gray-400);
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.contact__item p {
+  font-size: 0.95rem;
+  color: var(--gray-900);
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.contact__item-sub {
+  font-size: 0.82rem !important;
+  color: var(--gray-500) !important;
+  font-weight: 400 !important;
+}
+
+.contact__item a {
+  color: var(--yonsei-blue);
+  font-weight: 700;
+  transition: color 0.2s;
+}
+
+.contact__item a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .contact__wrapper { grid-template-columns: 1fr; }
+
+  .contact__map     { min-height: 280px; }
+  .contact__map iframe { min-height: 280px; }
+
+  .contact__item:hover { transform: translateY(-2px); }
+}

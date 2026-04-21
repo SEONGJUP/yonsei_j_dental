@@ -1,0 +1,157 @@
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+.footer {
+  background: var(--gray-900);
+  color: var(--white);
+  padding: 64px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent);
+}
+
+/* ── Inner ── */
+.footer__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── Brand ── */
+.footer__logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.footer__yonsei-logo { opacity: 0.65; }
+
+.footer__logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.footer__tagline {
+  font-size: 0.86rem;
+  color: rgba(255,255,255,0.38);
+  max-width: 300px;
+  line-height: 1.65;
+  margin-bottom: 22px;
+  font-weight: 400;
+}
+
+/* ── SNS ── */
+.footer__sns {
+  display: flex;
+  gap: 10px;
+}
+
+.footer__sns-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.4);
+  transition: all 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+
+.footer__sns-btn:hover {
+  background: var(--sns-color, rgba(255,255,255,0.12));
+  border-color: var(--sns-color, rgba(255,255,255,0.2));
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+/* ── Links ── */
+.footer__links {
+  display: flex;
+  gap: 52px;
+}
+
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer__col h4 {
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer__col a,
+.footer__col span {
+  font-size: 0.86rem;
+  color: rgba(255,255,255,0.38);
+  transition: color 0.2s ease;
+  display: inline-block;
+  font-weight: 400;
+}
+
+.footer__col a:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.footer__blog-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Bottom ── */
+.footer__bottom {
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__bottom p {
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.22);
+  font-weight: 400;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .footer { padding: 52px 0 0; }
+
+  .footer__inner {
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .footer__links {
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,246 @@
+/* ══════════════════════════════════════
+   DOCTORS
+══════════════════════════════════════ */
+.doctors {
+  background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+}
+
+/* ── Profile Block ── */
+.doctors__profile {
+  max-width: 740px;
+  margin: 0 auto 28px;
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 52px 48px;
+  gap: 36px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.38s ease;
+}
+
+.doctors__profile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--yonsei-blue) 0%, var(--primary-light) 100%);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.doctors__profile::after {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,32,91,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.doctors__profile:hover { box-shadow: var(--shadow-xl); }
+
+/* ── Photo ── */
+.doctors__photo-wrap {
+  width: min(520px, 100%);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,32,91,0.14);
+  border: 5px solid #fff;
+  outline: 1px solid var(--gray-100);
+  flex-shrink: 0;
+  line-height: 0;
+  transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+}
+
+.doctors__profile:hover .doctors__photo-wrap {
+  transform: translateY(-4px);
+}
+
+.doctors__photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Info ── */
+.doctors__info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  text-align: center;
+}
+
+.doctors__name-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.doctors__label {
+  font-size: 0.7rem;
+  color: var(--yonsei-blue);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.2px;
+}
+
+.doctors__name {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  letter-spacing: -0.03em;
+}
+
+/* ── Quote ── */
+.doctors__quote {
+  font-size: 0.98rem;
+  color: var(--gray-600);
+  font-style: italic;
+  line-height: 1.85;
+  margin: 0;
+  padding: 20px 30px;
+  background: linear-gradient(135deg, var(--gray-50) 0%, #f0f4ff 100%);
+  border-radius: 12px;
+  border-left: 4px solid var(--yonsei-blue);
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.doctors__quote::before {
+  content: '"';
+  position: absolute;
+  top: 10px;
+  left: 18px;
+  font-size: 3rem;
+  color: var(--yonsei-blue);
+  opacity: 0.12;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* ── Career ── */
+.doctors__career {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.doctors__career li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.93rem;
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+.doctors__yonsei-icon { flex-shrink: 0; opacity: 0.85; }
+
+.doctors__bullet {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.doctors__bullet::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* ── Stats ── */
+.doctors__stats {
+  max-width: 740px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.doctors__stat {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 30px 20px;
+  text-align: center;
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.32s cubic-bezier(0.4,0,0.2,1);
+}
+
+.doctors__stat:hover {
+  border-color: var(--yonsei-blue);
+  box-shadow: 0 8px 28px rgba(0,32,91,0.1);
+  transform: translateY(-4px);
+}
+
+.doctors__stat-number {
+  display: block;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--yonsei-blue);
+  margin-bottom: 6px;
+  letter-spacing: -0.03em;
+}
+
+.doctors__stat-label {
+  font-size: 0.83rem;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .doctors__profile {
+    padding: 40px 24px 36px;
+    gap: 26px;
+    border-radius: var(--radius-lg);
+  }
+
+  .doctors__photo-wrap { width: 100%; }
+
+  .doctors__quote {
+    padding: 16px 20px;
+    font-size: 0.92rem;
+  }
+
+  .doctors__stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .doctors__stat {
+    padding: 20px 10px;
+  }
+
+  .doctors__stat-number {
+    font-size: 1.15rem;
+  }
+
+  .doctors__stat-label {
+    font-size: 0.75rem;
+  }
+}

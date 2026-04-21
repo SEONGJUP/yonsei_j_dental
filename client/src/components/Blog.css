@@ -1,0 +1,206 @@
+/* ══════════════════════════════════════
+   BLOG
+══════════════════════════════════════ */
+.blog {
+  background: var(--white);
+}
+
+.blog__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 44px;
+}
+
+/* ── Card ── */
+.blog__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all 0.32s cubic-bezier(0.4,0,0.2,1);
+  cursor: pointer;
+}
+
+.blog__card:hover {
+  border-color: transparent;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+}
+
+/* ── Thumbnail ── */
+.blog__thumb {
+  width: 100%;
+  height: 188px;
+  overflow: hidden;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.blog__thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.12) 100%);
+  opacity: 0;
+  transition: opacity 0.32s ease;
+}
+
+.blog__card:hover .blog__thumb::after { opacity: 1; }
+
+.blog__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+
+.blog__card:hover .blog__thumb img { transform: scale(1.06); }
+
+.blog__thumb-placeholder {
+  color: var(--gray-300);
+  font-size: 2rem;
+}
+
+/* ── Body ── */
+.blog__body {
+  padding: 22px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.blog__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  line-height: 1.55;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  letter-spacing: -0.01em;
+}
+
+.blog__desc {
+  font-size: 0.82rem;
+  color: var(--gray-500);
+  line-height: 1.65;
+  margin-bottom: 14px;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--gray-100);
+}
+
+.blog__date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.74rem;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+.blog__read-more {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.76rem;
+  color: var(--yonsei-blue);
+  font-weight: 700;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.25s ease;
+}
+
+.blog__card:hover .blog__read-more {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── CTA ── */
+.blog__cta {
+  display: flex;
+  justify-content: center;
+}
+
+.blog__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 32px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 50px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--gray-700);
+  transition: all 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+
+.blog__cta-btn:hover {
+  border-color: var(--yonsei-blue);
+  color: var(--yonsei-blue);
+  background: #f0f4ff;
+  box-shadow: 0 4px 16px rgba(0,32,91,0.1);
+  transform: translateY(-2px);
+}
+
+.blog__empty {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--gray-400);
+  font-size: 0.95rem;
+}
+
+/* ── Skeleton ── */
+.blog__loading {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.blog__skeleton {
+  height: 300px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, var(--gray-100) 25%, #f3f4f6 50%, var(--gray-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .blog__grid { grid-template-columns: 1fr; gap: 16px; }
+
+  .blog__card { flex-direction: row; }
+
+  .blog__thumb {
+    width: 120px;
+    height: auto;
+    min-height: 120px;
+    flex-shrink: 0;
+  }
+
+  .blog__body { padding: 14px 16px; }
+  .blog__title { font-size: 0.88rem; }
+  .blog__desc { display: none; }
+
+  .blog__loading { grid-template-columns: 1fr; }
+  .blog__skeleton { height: 120px; }
+}

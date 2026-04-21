@@ -1,0 +1,109 @@
+/* ══════════════════════════════════════
+   ABOUT
+══════════════════════════════════════ */
+.about {
+  background: var(--white);
+}
+
+.about__values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ── Card ── */
+.about__card {
+  position: relative;
+  background: var(--gray-50);
+  padding: 40px 32px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  border: 1px solid var(--gray-100);
+  transition: all 0.38s cubic-bezier(0.4,0,0.2,1);
+  overflow: hidden;
+}
+
+.about__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,32,91,0.03) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.38s ease;
+}
+
+.about__card:hover {
+  border-color: var(--gray-200);
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+}
+
+.about__card:hover::before { opacity: 1; }
+
+/* ── Icon ── */
+.about__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: var(--yonsei-blue);
+  color: var(--white);
+  font-size: 1.4rem;
+  margin-bottom: 22px;
+  transition: all 0.38s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 8px 20px rgba(0,32,91,0.2);
+}
+
+.about__card:hover .about__icon {
+  background: var(--primary);
+  transform: scale(1.08) rotate(-4deg);
+  box-shadow: 0 12px 28px rgba(27,94,123,0.28);
+}
+
+/* ── Text ── */
+.about__card-title {
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--gray-900);
+  letter-spacing: -0.01em;
+}
+
+.about__card-desc {
+  font-size: 0.88rem;
+  color: var(--gray-500);
+  line-height: 1.75;
+  font-weight: 400;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .about__values {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .about__card {
+    padding: 22px 16px;
+  }
+
+  .about__icon {
+    width: 46px;
+    height: 46px;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+
+  .about__card-title { font-size: 0.92rem; margin-bottom: 0; }
+
+  /* 상세 설명 모바일에서 숨김 */
+  .about__card-desc { display: none; }
+}
+
+@media (max-width: 360px) {
+  .about__values { gap: 8px; }
+  .about__card { padding: 18px 12px; }
+}

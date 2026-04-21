@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build output
+client/dist/
+client/build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+dev-log.txt
+restart-log.txt
+
+# Debug / temp scripts & results
+*-result.txt
+check.js
+check-servers.js
+debug-blog.js
+fix-temp-path.js
+restart-all.js
+restart-server.js
+start-servers.js
+test-api.js
+test-blog.js
+test-blog-detail.js
+verify-blog.js
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Vite cache
+client/.vite/
+.claude/
