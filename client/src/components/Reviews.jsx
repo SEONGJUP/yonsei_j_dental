@@ -137,9 +137,7 @@ function Reviews() {
               <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
             </svg>
             네이버 리뷰
-            {reviewCount && (
-              <span className="reviews__naver-count">총 {reviewCount}건</span>
-            )}
+            <span className="reviews__naver-count">3년간 1,838건</span>
           </div>
           <h2 className="section-title reviews__title">
             연세제이치과의 치아와 잇몸에 대한 마음은<br />
