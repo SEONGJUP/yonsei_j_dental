@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
 import './ClinicMap.css';
 
@@ -7,6 +7,11 @@ const LNG = 126.9472485;
 const NAVER_URL =
   'https://m.place.naver.com/hospital/1710388626/location?bk_query=%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC&entry=pll&filter=location&selected_place_id=1710388626';
 const NCP_ID = import.meta.env.VITE_NAVER_CLIENT_ID;
+
+// PIN 앵커: bubble(22px) + gap(4px) + dot반경(7px) = 33px (dot 중심)
+// 가로 중심: bubble 너비 ~90px → 45px
+const ANCHOR_X = 45;
+const ANCHOR_Y = 33;
 
 const PIN_HTML = `<div class="clinic-pin">
   <div class="clinic-pin__bubble">연세제이치과</div>
@@ -30,12 +35,16 @@ function initNaverMap(container) {
   new naver.maps.Marker({
     position: new naver.maps.LatLng(LAT, LNG),
     map,
-    icon: { content: PIN_HTML, anchor: new naver.maps.Point(45, 40) },
+    icon: {
+      content: PIN_HTML,
+      size: new naver.maps.Size(90, 46),
+      anchor: new naver.maps.Point(ANCHOR_X, ANCHOR_Y),
+    },
   });
   return map;
 }
 
-// ── Leaflet fallback ──
+// ── Leaflet (기본 interactive 지도) ──
 function initLeafletMap(container) {
   return import('leaflet').then((L) => {
     const map = L.map(container, {
@@ -53,31 +62,26 @@ function initLeafletMap(container) {
       { subdomains: 'abcd', maxZoom: 19 }
     ).addTo(map);
     L.control.zoom({ position: 'topright' }).addTo(map);
-    const icon = L.divIcon({ className: '', html: PIN_HTML, iconSize: [90, 46], iconAnchor: [45, 40] });
+    const icon = L.divIcon({
+      className: '',
+      html: PIN_HTML,
+      iconSize: [90, 46],
+      iconAnchor: [ANCHOR_X, ANCHOR_Y],
+    });
     L.marker([LAT, LNG], { icon }).addTo(map);
     return map;
   });
 }
 
-// ── 우선순위: dynamic(JS) > static(이미지) > leaflet ──
-// dynamic: VITE_NAVER_CLIENT_ID 환경변수
-// static : 서버 NAVER_CLIENT_ID + NAVER_CLIENT_SECRET
-// leaflet: 모두 없을 때 fallback
+// ── 우선순위: VITE_NAVER_CLIENT_ID 있으면 Naver Dynamic, 없으면 Leaflet ──
 function ClinicMap() {
   const containerRef = useRef(null);
   const mapRef       = useRef(null);
-  // 'dynamic' | 'static' | 'leaflet'
-  const [mode, setMode] = useState(NCP_ID ? 'dynamic' : 'static');
 
-  // Static map img 오류 → Leaflet으로 전환
-  const onStaticError = () => setMode('leaflet');
-
-  // Dynamic / Leaflet 초기화
   useEffect(() => {
-    if (mode === 'static') return;
     if (mapRef.current || !containerRef.current) return;
 
-    if (mode === 'dynamic' && NCP_ID) {
+    if (NCP_ID) {
       if (window.naver?.maps) {
         mapRef.current = initNaverMap(containerRef.current);
       } else {
@@ -89,50 +93,23 @@ function ClinicMap() {
     } else {
       initLeafletMap(containerRef.current).then((m) => { mapRef.current = m; });
     }
-  }, [mode]);
+  }, []);
 
-  const Badge = () => (
-    <a
-      href={NAVER_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="clinic-map-badge"
-      aria-label="네이버 지도에서 연세제이치과 위치 보기"
-    >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="#03C75A">
-        <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z" />
-      </svg>
-      네이버 지도에서 보기
-    </a>
-  );
-
-  // ── Static Map 렌더 ──
-  if (mode === 'static') {
-    return (
-      <div className="clinic-map-wrap">
-        <a
-          href={NAVER_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="clinic-map-static-link"
-        >
-          <img
-            src="/api/naver-static-map"
-            alt="연세제이치과 위치"
-            className="clinic-map-static-img"
-            onError={onStaticError}
-          />
-        </a>
-        <Badge />
-      </div>
-    );
-  }
-
-  // ── Dynamic / Leaflet 렌더 ──
   return (
     <div className="clinic-map-wrap">
       <div ref={containerRef} className="clinic-map-container" />
-      <Badge />
+      <a
+        href={NAVER_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="clinic-map-badge"
+        aria-label="네이버 지도에서 연세제이치과 위치 보기"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#03C75A">
+          <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z" />
+        </svg>
+        네이버 지도에서 보기
+      </a>
     </div>
   );
 }

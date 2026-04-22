@@ -114,25 +114,7 @@
   color: #fff !important;
 }
 
-/* ── Static Map (Naver 이미지) ── */
-.clinic-map-static-link {
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 420px;
-}
-
-.clinic-map-static-img {
-  width: 100%;
-  height: 100%;
-  min-height: 420px;
-  object-fit: cover;
-  display: block;
-}
-
 @media (max-width: 768px) {
-  .clinic-map-wrap          { min-height: 260px; }
-  .clinic-map-container     { min-height: 260px; }
-  .clinic-map-static-link   { min-height: 260px; }
-  .clinic-map-static-img    { min-height: 260px; }
+  .clinic-map-wrap      { min-height: 260px; }
+  .clinic-map-container { min-height: 260px; }
 }
