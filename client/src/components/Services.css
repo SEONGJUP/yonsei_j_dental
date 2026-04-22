@@ -153,11 +153,19 @@
 
 /* ── Note ── */
 .services__note {
-  margin-top: 18px;
+  margin-top: 22px;
   text-align: center;
-  font-size: 0.82rem;
-  color: var(--gray-400);
-  letter-spacing: -0.01em;
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: var(--yonsei-blue);
+  letter-spacing: -0.02em;
+  padding: 14px 24px;
+  background: rgba(0, 32, 91, 0.05);
+  border: 1px solid rgba(0, 32, 91, 0.12);
+  border-radius: var(--radius-lg);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ── Responsive ── */
