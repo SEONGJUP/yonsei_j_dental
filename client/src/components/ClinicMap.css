@@ -1,0 +1,96 @@
+.clinic-map-wrap {
+  display: block;
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  min-height: 420px;
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-lg);
+  text-decoration: none;
+  cursor: pointer;
+  transition: box-shadow 0.32s ease;
+}
+
+.clinic-map-wrap:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+.clinic-map-container {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  pointer-events: none;
+}
+
+/* ── 핀 ── */
+.clinic-pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.clinic-pin__bubble {
+  background: #00205B;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 3px 12px rgba(0,32,91,0.35);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.clinic-pin__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #00205B;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,32,91,0.4);
+}
+
+.clinic-pin__shadow {
+  width: 10px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.18);
+  margin-top: 2px;
+  filter: blur(2px);
+}
+
+/* ── 네이버 지도 배지 ── */
+.clinic-map-badge {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: #fff;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  white-space: nowrap;
+  z-index: 999;
+  transition: background 0.22s ease, color 0.22s ease;
+  pointer-events: none;
+}
+
+.clinic-map-wrap:hover .clinic-map-badge {
+  background: #03C75A;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .clinic-map-wrap      { min-height: 260px; }
+  .clinic-map-container { min-height: 260px; }
+}

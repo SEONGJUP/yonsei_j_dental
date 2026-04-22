@@ -1,5 +1,6 @@
-import { FiMapPin, FiPhone, FiNavigation, FiClock } from 'react-icons/fi';
+import { FiPhone, FiNavigation, FiClock, FiMapPin } from 'react-icons/fi';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import ClinicMap from './ClinicMap';
 import './Contact.css';
 
 function Contact() {
@@ -18,30 +19,12 @@ function Contact() {
         </div>
 
         <div className="contact__wrapper">
-          <a
+          <div
             ref={mapRef}
-            href="https://m.place.naver.com/hospital/1710388626/location?bk_query=%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC&entry=pll&filter=location&selected_place_id=1710388626"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`contact__map contact__map--naver fade-in-left ${mapVisible ? 'visible' : ''}`}
-            aria-label="네이버 지도에서 연세제이치과 위치 보기"
+            className={`fade-in-left ${mapVisible ? 'visible' : ''}`}
           >
-            <iframe
-              src="https://www.openstreetmap.org/export/embed.html?bbox=126.9452%2C37.5064%2C126.9492%2C37.5084&layer=mapnik&marker=37.5074%2C126.9472"
-              className="contact__map-osm"
-              loading="lazy"
-              title="연세제이치과 위치 지도"
-              tabIndex="-1"
-            />
-            <div className="contact__map-overlay">
-              <span className="contact__map-cta">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="#03C75A">
-                  <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
-                </svg>
-                네이버 지도에서 보기
-              </span>
-            </div>
-          </a>
+            <ClinicMap />
+          </div>
 
           <div ref={infoRef} className="contact__info">
             {[
