@@ -19,10 +19,10 @@ function ClinicMap() {
         center: [LAT, LNG],
         zoom: 17,
         zoomControl: false,
-        scrollWheelZoom: false,
-        dragging: false,
-        touchZoom: false,
-        doubleClickZoom: false,
+        scrollWheelZoom: true,
+        dragging: true,
+        touchZoom: true,
+        doubleClickZoom: true,
         boxZoom: false,
         keyboard: false,
         attributionControl: false,
@@ -32,6 +32,8 @@ function ClinicMap() {
         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
         { subdomains: 'abcd', maxZoom: 19 }
       ).addTo(map);
+
+      L.control.zoom({ position: 'topright' }).addTo(map);
 
       const icon = L.divIcon({
         className: '',
@@ -51,21 +53,21 @@ function ClinicMap() {
   }, []);
 
   return (
-    <a
-      href={NAVER_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="clinic-map-wrap"
-      aria-label="네이버 지도에서 연세제이치과 위치 보기"
-    >
+    <div className="clinic-map-wrap">
       <div ref={containerRef} className="clinic-map-container" />
-      <div className="clinic-map-badge">
+      <a
+        href={NAVER_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="clinic-map-badge"
+        aria-label="네이버 지도에서 연세제이치과 위치 보기"
+      >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="#03C75A">
           <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z" />
         </svg>
         네이버 지도에서 보기
-      </div>
-    </a>
+      </a>
+    </div>
   );
 }
 
