@@ -6,7 +6,6 @@ function Contact() {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [mapRef, mapVisible] = useScrollAnimation(0.1);
   const [infoRef, infoVisible] = useScrollAnimation(0.1);
-  const [dirRef, dirVisible] = useScrollAnimation(0.1);
 
   return (
     <section id="contact" className="section contact">
@@ -93,10 +92,7 @@ function Contact() {
         </div>
 
         {/* ── 자차 길 안내 ── */}
-        <div
-          ref={dirRef}
-          className={`contact__directions fade-in ${dirVisible ? 'visible' : ''}`}
-        >
+        <div className="contact__directions">
           <div className="contact__directions-text">
             <div className="contact__directions-icon">
               <FiCar size={20} />
