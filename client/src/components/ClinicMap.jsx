@@ -30,7 +30,7 @@ function initNaverMap(container) {
   new naver.maps.Marker({
     position: new naver.maps.LatLng(LAT, LNG),
     map,
-    icon: { content: PIN_HTML, anchor: new naver.maps.Point(0, 0) },
+    icon: { content: PIN_HTML, anchor: new naver.maps.Point(45, 40) },
   });
   return map;
 }
@@ -53,7 +53,7 @@ function initLeafletMap(container) {
       { subdomains: 'abcd', maxZoom: 19 }
     ).addTo(map);
     L.control.zoom({ position: 'topright' }).addTo(map);
-    const icon = L.divIcon({ className: '', html: PIN_HTML, iconSize: [0, 0], iconAnchor: [0, 0] });
+    const icon = L.divIcon({ className: '', html: PIN_HTML, iconSize: [90, 46], iconAnchor: [45, 40] });
     L.marker([LAT, LNG], { icon }).addTo(map);
     return map;
   });
