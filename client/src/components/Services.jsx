@@ -140,7 +140,7 @@ function Services() {
         <div ref={titleRef} className={`fade-in ${titleVisible ? 'visible' : ''}`}>
           <h2 className="section-title">진료 안내</h2>
           <p className="section-subtitle">
-            보존과, 보철과, 구강악안면외과, 치주과, 영상치의학과, 구강내과 등 폭넓은 진료
+            보존과, 보철과, 구강악안면외과, 치주과,<br className="m-br" /> 영상치의학과, 구강내과 등 폭넓은 진료
           </p>
         </div>
 
@@ -163,7 +163,7 @@ function Services() {
           ))}
         </div>
         <p className="services__note">
-          1인 대표원장 체제이기에 교정치료는 간단한 상담 후 협력 전문치과로 의뢰해드립니다.
+          1인 대표원장 체제이기에 교정치료는<br className="m-br" /> 간단한 상담 후 협력 전문치과로 의뢰해드립니다.
         </p>
       </div>
     </section>

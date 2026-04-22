@@ -14,7 +14,7 @@ function Contact() {
         <div ref={titleRef} className={`fade-in ${titleVisible ? 'visible' : ''}`}>
           <h2 className="section-title">오시는 길</h2>
           <p className="section-subtitle">
-            서울 동작구 상도동, 편리한 교통과 주차 시설을 갖추고 있습니다
+            서울 동작구 상도동,<br className="m-br" /> 편리한 교통과 주차 시설을 갖추고 있습니다
           </p>
         </div>
 

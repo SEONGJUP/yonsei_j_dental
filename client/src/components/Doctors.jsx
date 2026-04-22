@@ -49,8 +49,7 @@ function Doctors() {
             </div>
 
             <blockquote className="doctors__quote">
-              "찾아와주시는 분들의 치아를 평생 책임져드리겠다는<br />
-              목표를 가지고 진료에 임하겠습니다."
+              "찾아와주시는 분들의 치아를<br className="m-br" /> 평생 책임져드리겠다는<br className="d-br" />{' '}목표를 가지고<br className="m-br" /> 진료에 임하겠습니다."
             </blockquote>
 
             <ul className="doctors__career">

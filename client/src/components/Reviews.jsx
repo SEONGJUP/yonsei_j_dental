@@ -140,7 +140,7 @@ function Reviews() {
             <span className="reviews__naver-count">3년간 1,838건</span>
           </div>
           <h2 className="section-title reviews__title">
-            연세제이치과의 치아와 잇몸에 대한 마음은<br />
+            연세제이치과의<br className="m-br" />치아와 잇몸에 대한 마음은<br />
             <span className="reviews__title-em">네이버 리뷰가 대변해줍니다</span>
           </h2>
           <p className="section-subtitle">

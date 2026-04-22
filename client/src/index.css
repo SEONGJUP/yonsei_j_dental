@@ -30,6 +30,11 @@
   --radius-xl:      24px;
 }
 
+/* ── 반응형 줄바꿈 유틸리티 ── */
+br.m-br { display: none; }
+@media (max-width: 768px) { br.m-br { display: inline; } }
+@media (max-width: 768px) { br.d-br { display: none; } }
+
 /* ══════════════════════════════════════
    RESET
 ══════════════════════════════════════ */

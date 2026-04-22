@@ -227,14 +227,12 @@
     font-size: 0.92rem;
   }
 
-  .doctors__career { align-items: flex-start; width: 100%; }
+  .doctors__career { align-items: center; }
 
   .doctors__career li {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
+    justify-content: center;
   }
 
   .doctors__bullet { display: none; }
