@@ -1,9 +1,84 @@
+import { useState, useEffect } from 'react';
 import './YouTube.css';
 
-const CHANNEL_ID  = 'UCLcyi5GOklyvjVWpgAVzr7g';
-const PLAYLIST_ID = 'UU' + CHANNEL_ID.slice(2); // 채널 업로드 플레이리스트
+const CHANNEL_ID = 'UCLcyi5GOklyvjVWpgAVzr7g';
+const CHANNEL_URL = `https://www.youtube.com/channel/${CHANNEL_ID}`;
+const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}&count=3`;
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function extractVideoId(link) {
+  const m = link?.match(/[?&]v=([^&]+)/);
+  return m ? m[1] : null;
+}
+
+function VideoCard({ video, index }) {
+  const [thumbError, setThumbError] = useState(false);
+  const videoId = extractVideoId(video.link);
+  const thumbnail = video.thumbnail || (videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : '');
+
+  return (
+    <a
+      href={video.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="yt-card"
+      style={{ animationDelay: `${index * 0.1}s` }}
+    >
+      <div className="yt-card__thumb">
+        {!thumbError && thumbnail ? (
+          <img
+            src={thumbnail}
+            alt={video.title}
+            loading="lazy"
+            onError={() => setThumbError(true)}
+          />
+        ) : (
+          <div className="yt-card__thumb-fallback">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40">
+              <path d="M21.8 8S21.6 6.5 21 5.7c-.7-.8-1.5-.8-1.8-.9C16.8 4.7 12 4.7 12 4.7s-4.8 0-7.2.1c-.4 0-1.2.1-1.8.9C2.4 6.5 2.2 8 2.2 8S2 9.8 2 11.5v1.6c0 1.7.2 3.5.2 3.5s.2 1.5.8 2.3c.7.8 1.6.8 2 .9C6.5 20 12 20 12 20s4.8 0 7.2-.2c.4 0 1.2-.1 1.8-.9.6-.8.8-2.3.8-2.3S22 14.8 22 13v-1.6C22 9.8 21.8 8 21.8 8zM10 15.5v-7l6 3.5-6 3.5z"/>
+            </svg>
+          </div>
+        )}
+        <div className="yt-card__play">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+      </div>
+      <div className="yt-card__body">
+        <h3 className="yt-card__title">{video.title}</h3>
+        <div className="yt-card__meta">
+          <span>{formatDate(video.pubDate)}</span>
+        </div>
+      </div>
+    </a>
+  );
+}
 
 function YouTube() {
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => {
+        if (data.status === 'ok' && data.items?.length) {
+          setVideos(data.items.slice(0, 3));
+        } else {
+          setError(true);
+        }
+      })
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <section id="youtube" className="section youtube snap-section">
       <div className="container">
@@ -22,24 +97,25 @@ function YouTube() {
           </p>
         </div>
 
-        <div className="youtube__embed-wrap">
-          <iframe
-            src={`https://www.youtube.com/embed/videoseries?list=${PLAYLIST_ID}&rel=0&modestbranding=1`}
-            title="연세제이치과 유튜브 채널"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className="youtube__iframe"
-            loading="lazy"
-          />
-        </div>
+        {loading ? (
+          <div className="youtube__skeleton-wrap">
+            {[0, 1, 2].map(i => <div key={i} className="youtube__skeleton" />)}
+          </div>
+        ) : error || videos.length === 0 ? (
+          <div className="youtube__fallback">
+            <p>영상을 불러오지 못했습니다.</p>
+            <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="youtube__cta-btn" style={{ marginTop: 16 }}>
+              유튜브 채널에서 보기
+            </a>
+          </div>
+        ) : (
+          <div className="youtube__grid">
+            {videos.map((v, i) => <VideoCard key={v.link} video={v} index={i} />)}
+          </div>
+        )}
 
         <div className="youtube__cta">
-          <a
-            href={`https://www.youtube.com/channel/${CHANNEL_ID}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="youtube__cta-btn"
-          >
+          <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="youtube__cta-btn">
             <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
               <path d="M21.8 8S21.6 6.5 21 5.7c-.7-.8-1.5-.8-1.8-.9C16.8 4.7 12 4.7 12 4.7s-4.8 0-7.2.1c-.4 0-1.2.1-1.8.9C2.4 6.5 2.2 8 2.2 8S2 9.8 2 11.5v1.6c0 1.7.2 3.5.2 3.5s.2 1.5.8 2.3c.7.8 1.6.8 2 .9C6.5 20 12 20 12 20s4.8 0 7.2-.2c.4 0 1.2-.1 1.8-.9.6-.8.8-2.3.8-2.3S22 14.8 22 13v-1.6C22 9.8 21.8 8 21.8 8zM10 15.5v-7l6 3.5-6 3.5z"/>
             </svg>
