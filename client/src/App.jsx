@@ -25,7 +25,7 @@ function App() {
         <div className="snap-section"><Hours /></div>
         <div className="snap-section"><Blog /></div>
         <YouTube />
-        <div className="snap-section"><Contact /></div>
+        <Contact />
       </main>
       <Footer />
 
