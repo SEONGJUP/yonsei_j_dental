@@ -26,13 +26,16 @@ function Contact() {
             className={`contact__map contact__map--naver fade-in-left ${mapVisible ? 'visible' : ''}`}
             aria-label="네이버 지도에서 연세제이치과 위치 보기"
           >
-            <div className="contact__map-inner">
-              <div className="contact__map-pin">
-                <FiMapPin size={36} />
-              </div>
-              <p className="contact__map-label">서울 동작구 만양로 17, 2층</p>
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=126.9452%2C37.5064%2C126.9492%2C37.5084&layer=mapnik&marker=37.5074%2C126.9472"
+              className="contact__map-osm"
+              loading="lazy"
+              title="연세제이치과 위치 지도"
+              tabIndex="-1"
+            />
+            <div className="contact__map-overlay">
               <span className="contact__map-cta">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="#03C75A">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#03C75A">
                   <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
                 </svg>
                 네이버 지도에서 보기
