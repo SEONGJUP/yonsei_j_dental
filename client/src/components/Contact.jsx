@@ -1,4 +1,4 @@
-import { FiMapPin, FiPhone, FiNavigation, FiClock } from 'react-icons/fi';
+import { FiMapPin, FiPhone, FiNavigation, FiClock, FiCar } from 'react-icons/fi';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import './Contact.css';
 
@@ -6,6 +6,7 @@ function Contact() {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [mapRef, mapVisible] = useScrollAnimation(0.1);
   const [infoRef, infoVisible] = useScrollAnimation(0.1);
+  const [dirRef, dirVisible] = useScrollAnimation(0.1);
 
   return (
     <section id="contact" className="section contact">
@@ -90,6 +91,30 @@ function Contact() {
             ))}
           </div>
         </div>
+
+        {/* ── 자차 길 안내 ── */}
+        <div
+          ref={dirRef}
+          className={`contact__directions fade-in ${dirVisible ? 'visible' : ''}`}
+        >
+          <div className="contact__directions-text">
+            <div className="contact__directions-icon">
+              <FiCar size={20} />
+            </div>
+            <div>
+              <h4 className="contact__directions-title">자차 이용 시 길 안내</h4>
+              <p className="contact__directions-desc">
+                내비게이션 도착지를 <strong>「동작구 만양로12 파리바게트」</strong>로 설정해 주세요.<br />
+                파리바게트에서 몇 미터 언덕 위로 올라오시면 좌측에 <strong>이디야커피</strong>가 있는 건물입니다.<br />
+                빨간 화살표 골목으로 올라오시면 주차장이 있습니다. 😊
+              </p>
+            </div>
+          </div>
+          <div className="contact__directions-img">
+            <img src="/directions-guide.png" alt="연세제이치과 자차 길 안내" loading="lazy" />
+          </div>
+        </div>
+
       </div>
     </section>
   );

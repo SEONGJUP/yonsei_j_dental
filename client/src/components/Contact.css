@@ -109,6 +109,70 @@
   text-decoration: underline;
 }
 
+/* ── Directions ── */
+.contact__directions {
+  max-width: 1020px;
+  margin: 28px auto 0;
+  background: #fffbf0;
+  border: 1.5px solid #f59e0b;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(245,158,11,0.1);
+}
+
+.contact__directions-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 28px 20px;
+}
+
+.contact__directions-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #f59e0b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact__directions-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #92400e;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 8px;
+}
+
+.contact__directions-desc {
+  font-size: 0.92rem;
+  color: #78350f;
+  line-height: 1.75;
+  font-weight: 400;
+}
+
+.contact__directions-desc strong {
+  font-weight: 800;
+  color: #92400e;
+}
+
+.contact__directions-img {
+  width: 100%;
+  border-top: 1px solid rgba(245,158,11,0.25);
+}
+
+.contact__directions-img img {
+  width: 100%;
+  display: block;
+  max-height: 480px;
+  object-fit: contain;
+  background: #fef3c7;
+}
+
 /* ── Mobile ── */
 @media (max-width: 768px) {
   .contact__wrapper { grid-template-columns: 1fr; }
