@@ -1,4 +1,4 @@
-import { FiMapPin, FiPhone, FiNavigation, FiClock, FiTruck } from 'react-icons/fi';
+import { FiMapPin, FiPhone, FiNavigation, FiClock } from 'react-icons/fi';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import './Contact.css';
 
@@ -93,11 +93,17 @@ function Contact() {
 
         {/* ── 자차 길 안내 ── */}
         <div className="contact__directions">
-          <div className="contact__directions-text">
+          <div className="contact__directions-left">
             <div className="contact__directions-icon">
-              <FiTruck size={20} />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                <rect x="1" y="11" width="22" height="9" rx="2"/>
+                <path d="M4 11V7a2 2 0 012-2h12a2 2 0 012 2v4"/>
+                <circle cx="7" cy="20" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="17" cy="20" r="1.5" fill="currentColor" stroke="none"/>
+                <path d="M4 15h2M18 15h2"/>
+              </svg>
             </div>
-            <div>
+            <div className="contact__directions-body">
               <h4 className="contact__directions-title">자차 이용 시 길 안내</h4>
               <p className="contact__directions-desc">
                 내비게이션 도착지를 <strong>「동작구 만양로12 파리바게트」</strong>로 설정해 주세요.<br />
