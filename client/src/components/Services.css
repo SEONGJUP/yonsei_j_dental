@@ -26,6 +26,7 @@
   overflow: hidden;
   transition: background 0.32s ease;
   cursor: default;
+  min-height: 360px;
 }
 
 .services__card::before {
