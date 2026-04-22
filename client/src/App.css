@@ -8,18 +8,8 @@ main {
   flex: 1;
 }
 
-/* Smooth scroll snap */
 html {
-  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
-}
-
-.snap-section {
-  scroll-snap-align: start;
-}
-
-.hero {
-  scroll-snap-align: start;
 }
 
 /* ── 모바일 전용 플로팅 전화 버튼 ── */

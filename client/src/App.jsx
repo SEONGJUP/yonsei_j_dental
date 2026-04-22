@@ -19,11 +19,11 @@ function App() {
       <main>
         <Hero />
         <Reviews />
-        <div className="snap-section"><Doctors /></div>
-        <div className="snap-section"><About /></div>
-        <div className="snap-section"><Services /></div>
-        <div className="snap-section"><Hours /></div>
-        <div className="snap-section"><Blog /></div>
+        <Doctors />
+        <About />
+        <Services />
+        <Hours />
+        <Blog />
         <YouTube />
         <Contact />
       </main>
