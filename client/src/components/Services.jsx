@@ -118,7 +118,7 @@ const services = [
     num: '08',
     title: '영상 진단',
     desc: '디지털 엑스레이, 3D CT 등 첨단 장비를 통해 정확한 진단을 내립니다.',
-    features: ['파노라마 촬영', '3D CT 촬영'],
+    features: ['파노라마 촬영', '3D CT 촬영', '디지털 구강 촬영'],
     icon: (
       <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="8" y="8" width="24" height="18" rx="2" stroke="currentColor" strokeWidth="2"/>
@@ -162,6 +162,9 @@ function Services() {
             </div>
           ))}
         </div>
+        <p className="services__note">
+          1인 대표원장 체제이기에 교정치료는 간단한 상담 후 협력 전문치과로 의뢰해드립니다.
+        </p>
       </div>
     </section>
   );
