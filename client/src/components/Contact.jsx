@@ -1,4 +1,4 @@
-import { FiMapPin, FiPhone, FiNavigation, FiClock, FiCar } from 'react-icons/fi';
+import { FiMapPin, FiPhone, FiNavigation, FiClock, FiTruck } from 'react-icons/fi';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import './Contact.css';
 
@@ -95,7 +95,7 @@ function Contact() {
         <div className="contact__directions">
           <div className="contact__directions-text">
             <div className="contact__directions-icon">
-              <FiCar size={20} />
+              <FiTruck size={20} />
             </div>
             <div>
               <h4 className="contact__directions-title">자차 이용 시 길 안내</h4>
