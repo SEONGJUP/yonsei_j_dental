@@ -18,21 +18,27 @@ function Contact() {
         </div>
 
         <div className="contact__wrapper">
-          <div
+          <a
             ref={mapRef}
-            className={`contact__map fade-in-left ${mapVisible ? 'visible' : ''}`}
+            href="https://m.place.naver.com/hospital/1710388626/location?bk_query=%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC&entry=pll&filter=location&selected_place_id=1710388626"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`contact__map contact__map--naver fade-in-left ${mapVisible ? 'visible' : ''}`}
+            aria-label="네이버 지도에서 연세제이치과 위치 보기"
           >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.5!2d126.95!3d37.51!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z7ISc7Jq4IOuPmeyekeq1rCDrp4zslpHroZwgMTcgMuy4tQ!5e0!3m2!1sko!2skr!4v1700000000000"
-              width="100%"
-              height="100%"
-              style={{ border: 0, borderRadius: 'var(--radius)' }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="연세제이치과 위치"
-            />
-          </div>
+            <div className="contact__map-inner">
+              <div className="contact__map-pin">
+                <FiMapPin size={36} />
+              </div>
+              <p className="contact__map-label">서울 동작구 만양로 17, 2층</p>
+              <span className="contact__map-cta">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#03C75A">
+                  <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
+                </svg>
+                네이버 지도에서 보기
+              </span>
+            </div>
+          </a>
 
           <div ref={infoRef} className="contact__info">
             {[

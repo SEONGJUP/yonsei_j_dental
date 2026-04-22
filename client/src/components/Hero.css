@@ -545,6 +545,9 @@
 
 /* ══ 반응형 ══ */
 @media (max-width: 900px) {
+  /* ── SCROLL 인디케이터 숨김 ── */
+  .hero__scroll { display: none; }
+
   /* ── 레이아웃 ── */
   .hero__inner {
     grid-template-columns: 1fr;

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './Reviews.css';
 
-const NAVER_REVIEW_URL = 'https://map.naver.com/p/search/%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC/place/1710388626?placePath=/review?bk_query=%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC&entry=pll&fromNxList=true&fromPanelNum=2&locale=ko&searchText=%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC&svcName=map_pcv5&timestamp=202604211337&entry=pll&fromNxList=true&fromPanelNum=2&timestamp=202604211337&locale=ko&svcName=map_pcv5&searchText=%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC&from=nx&searchType=place&c=15.00,0,0,0,dh';
+const NAVER_REVIEW_URL = 'https://m.place.naver.com/hospital/1710388626/review/visitor?bk_query=%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC&entry=pll';
 
 const SURNAMES = ['김', '이', '박', '최', '정', '강', '조', '윤', '장', '임', '오', '한', '신', '서', '권'];
 
