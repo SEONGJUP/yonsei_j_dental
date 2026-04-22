@@ -574,18 +574,10 @@
   .hero__title-line--3 { display: none; }
   .hero__title-line--4 { font-size: 2.3rem; }
 
-  /* ── 액션: 전화버튼 전체폭 ── */
-  .hero__actions {
-    justify-content: center;
-    width: 100%;
-  }
+  /* ── 전화버튼 숨김 (플로팅 버튼으로 대체) ── */
+  .hero__actions { display: none; }
 
-  .hero__btn--primary {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* ── 배지 한 줄 ── */
+  /* ── 배지 한 줄 중앙 ── */
   .hero__badges {
     justify-content: center;
     width: 100%;
@@ -601,42 +593,47 @@
   /* ── SNS 멘트 숨김 ── */
   .hero__sns-note { display: none; }
 
-  /* ── 오비탈 크기 ── */
-  .hero__orbital { width: 300px; height: 300px; }
-  .hero__orbital-core { width: 128px; height: 128px; }
-
-  /* 모바일: 원형 → flex-wrap 태그 클라우드 전환 */
+  /* ── 오비탈 + 키워드: 원형 오버레이 유지 ── */
   .hero__kw-ring {
-    width: 100%;
-    height: auto;
-    flex-wrap: wrap;
-    gap: 7px;
-    justify-content: center;
-    padding: 12px 0;
+    width: 300px;
+    height: 300px;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 0;
   }
 
   .hero__orbital {
     width: 240px;
     height: 240px;
     flex-shrink: 0;
-    flex-basis: 100%;
-    margin: 0 auto;
+    flex-basis: auto;
+    margin: 0;
   }
 
   .hero__orbital-core { width: 100px; height: 100px; }
 
-  /* 절대좌표 해제 → 일반 흐름 */
+  /* 키워드: 오비탈 위에 원형 배치 (r ≈ 105~120px) */
   .hero__kw,
   .hero__kw--1, .hero__kw--2, .hero__kw--3, .hero__kw--4, .hero__kw--5,
   .hero__kw--6, .hero__kw--7, .hero__kw--8, .hero__kw--9, .hero__kw--10 {
-    position: static;
-    transform: none !important;
-    top: auto;
-    left: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     display: inline-block;
   }
 
-  .hero__kw-pill { font-size: 0.68rem; padding: 5px 11px; }
+  .hero__kw--1  { transform: translate(  0px, -118px) translate(-50%,-50%); }
+  .hero__kw--2  { transform: translate( 83px,  -85px) translate(-50%,-50%); }
+  .hero__kw--3  { transform: translate(118px,   8px)  translate(-50%,-50%); }
+  .hero__kw--4  { transform: translate( 88px,  88px)  translate(-50%,-50%); }
+  .hero__kw--5  { transform: translate(  8px, 115px)  translate(-50%,-50%); }
+  .hero__kw--6  { transform: translate(-82px,  88px)  translate(-50%,-50%); }
+  .hero__kw--7  { transform: translate(-118px,  4px)  translate(-50%,-50%); }
+  .hero__kw--8  { transform: translate(-86px, -82px)  translate(-50%,-50%); }
+  .hero__kw--9  { transform: translate( 46px,-108px)  translate(-50%,-50%); }
+  .hero__kw--10 { transform: translate(-46px, 108px)  translate(-50%,-50%); }
+
+  .hero__kw-pill { font-size: 0.58rem; padding: 4px 9px; }
 }
 
 @media (max-width: 480px) {

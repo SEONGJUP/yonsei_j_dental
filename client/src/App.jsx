@@ -1,3 +1,4 @@
+import { FiPhone } from 'react-icons/fi';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Reviews from './components/Reviews';
@@ -27,6 +28,11 @@ function App() {
         <div className="snap-section"><Contact /></div>
       </main>
       <Footer />
+
+      {/* 모바일 전용 플로팅 전화 버튼 */}
+      <a href="tel:02-815-2875" className="float-call" aria-label="전화 상담">
+        <FiPhone size={24} />
+      </a>
     </div>
   );
 }
