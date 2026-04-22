@@ -199,6 +199,54 @@ app.get('/api/review-count', async (req, res) => {
   }
 });
 
+// ── Naver Static Map proxy ──
+// 환경변수: NAVER_CLIENT_ID (x-ncp-apigw-api-key-id)
+//          NAVER_CLIENT_SECRET (x-ncp-apigw-api-key)
+app.get('/api/naver-static-map', (req, res) => {
+  const clientId     = process.env.NAVER_CLIENT_ID;
+  const clientSecret = process.env.NAVER_CLIENT_SECRET;
+  if (!clientId || !clientSecret) {
+    return res.status(503).json({ error: 'Naver Maps not configured' });
+  }
+
+  const w     = Math.min(parseInt(req.query.w)     || 640,  2048);
+  const h     = Math.min(parseInt(req.query.h)     || 420,  2048);
+  const level = Math.min(parseInt(req.query.level) || 15,   21);
+
+  const params = new URLSearchParams({
+    center:  '126.9472485,37.5062069',
+    level:   String(level),
+    w:       String(w),
+    h:       String(h),
+    markers: 'type:e|size:mid|pos:126.9472485 37.5062069',
+    scale:   '2',
+    maptype: 'basic',
+  });
+
+  https.get(
+    {
+      hostname: 'maps.apigw.ntruss.com',
+      path:     `/map-static/v2/raster?${params.toString()}`,
+      headers: {
+        'x-ncp-apigw-api-key-id': clientId,
+        'x-ncp-apigw-api-key':    clientSecret,
+      },
+    },
+    (imgRes) => {
+      if (imgRes.statusCode !== 200) {
+        console.error('Naver static map status:', imgRes.statusCode);
+        return res.status(imgRes.statusCode || 502).end();
+      }
+      res.setHeader('Content-Type',  imgRes.headers['content-type'] || 'image/png');
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+      imgRes.pipe(res);
+    }
+  ).on('error', (err) => {
+    console.error('Naver static map error:', err.message);
+    res.status(502).end();
+  });
+});
+
 const ALLOWED_IMAGE_HOSTS = ['blogthumb.pstatic.net', 'postfiles.pstatic.net', 'blogpfthumb.phinf.naver.net', 'blogpfthumb-phinf.pstatic.net'];
 
 app.get('/api/img-proxy', (req, res) => {
