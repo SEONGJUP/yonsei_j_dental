@@ -119,7 +119,7 @@
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   display: grid;
-  grid-template-columns: 1fr 0.4fr;
+  grid-template-columns: 1fr 0.5fr;
 }
 
 .contact__directions-left {
