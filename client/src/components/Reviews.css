@@ -16,6 +16,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   background: #eafaf2;
   color: #03C75A;
   font-size: 0.78rem;
@@ -303,6 +305,17 @@
 /* ── Mobile ── */
 @media (max-width: 768px) {
   .reviews { padding: 72px 0; }
+
+  .reviews__naver-badge {
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 0.72rem;
+  }
+
+  .reviews__naver-count {
+    font-size: 0.67rem;
+    padding: 2px 8px;
+  }
 
   .reviews__stage { gap: 10px; min-height: 480px; }
 
