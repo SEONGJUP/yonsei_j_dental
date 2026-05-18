@@ -246,6 +246,33 @@
   box-shadow: 0 12px 36px rgba(255,0,0,0.44);
 }
 
+/* ── Skeleton Card ── */
+.yt-card--skeleton {
+  pointer-events: none;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.yt-card__thumb--skeleton {
+  background: rgba(255,255,255,0.08);
+}
+
+.yt-skeleton-line {
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.yt-skeleton-line--title {
+  height: 14px;
+  width: 85%;
+  margin-bottom: 8px;
+}
+
+.yt-skeleton-line--meta {
+  height: 11px;
+  width: 45%;
+}
+
 /* ── Fallback ── */
 .youtube__fallback {
   display: flex;

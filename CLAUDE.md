@@ -1,5 +1,7 @@
 # SEIIM Project Instructions
 
+`CLAUDE.md` is the source instruction file for Claude workflows. Mirror the same content into `AGENTS.md` so Codex can apply it automatically.
+
 ## 기본 설정
 
 - 소통 언어: 한국어 위주 (코드 주석/변수명은 영어)
