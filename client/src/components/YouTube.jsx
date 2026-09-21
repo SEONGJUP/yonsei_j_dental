@@ -23,7 +23,8 @@ function VideoCard({ video, index }) {
           <img
             src={video.thumbnail}
             alt={video.title}
-            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
             onError={() => setThumbErr(true)}
           />
         ) : (
