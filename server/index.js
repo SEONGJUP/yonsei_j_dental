@@ -54,6 +54,10 @@ function fetchRSS(url) {
       if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
         return fetchRSS(response.headers.location).then(resolve).catch(reject);
       }
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        response.resume();
+        return reject(new Error(`Request failed with status ${response.statusCode}`));
+      }
       let data = '';
       response.on('data', (chunk) => { data += chunk; });
       response.on('end', () => resolve(data));
@@ -115,6 +119,31 @@ const YT_CHANNEL_ID = 'UCLcyi5GOklyvjVWpgAVzr7g';
 const YT_CHANNEL_URL = `https://www.youtube.com/channel/${YT_CHANNEL_ID}`;
 let ytCache = { data: null, timestamp: 0 };
 const YT_CACHE_TTL = 30 * 60 * 1000; // 30분
+const YT_FALLBACK_VIDEOS = [
+  {
+    videoId: 'ftdKFxf9Wic',
+    title: '신경치료 권유받은 큰충치도 레진으로 될까?',
+    published: '2026-09-14T11:31:40+00:00',
+    views: 1796,
+  },
+  {
+    videoId: 'na4Dclvr1Pc',
+    title: '신경치료, 필수일까?!',
+    published: '2026-09-08T13:17:51+00:00',
+    views: 1615,
+  },
+  {
+    videoId: 'KUcjSqbQBpE',
+    title: '작은 가능성이라도 존재한다면 치아는 살리는 것이 좋습니다.',
+    published: '2026-08-28T11:52:12+00:00',
+    views: 2345,
+  },
+].map((video) => ({
+  ...video,
+  thumbnail: `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`,
+  link: `https://www.youtube.com/shorts/${video.videoId}`,
+  isShort: true,
+}));
 
 function parseYTFeed(xml) {
   const entries = [];
@@ -145,13 +174,14 @@ app.get('/api/youtube', async (req, res) => {
     if (ytCache.data && (now - ytCache.timestamp) < YT_CACHE_TTL) return res.json(ytCache.data);
     const xml = await fetchRSS(`https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`);
     const videos = parseYTFeed(xml);
+    if (videos.length === 0) throw new Error('YouTube feed did not contain video entries');
     const result = { channelUrl: YT_CHANNEL_URL, videos };
     ytCache = { data: result, timestamp: now };
     res.json(result);
   } catch (err) {
     console.error('YouTube RSS error:', err.message);
     if (ytCache.data) return res.json(ytCache.data);
-    res.status(500).json({ error: 'Failed to fetch YouTube feed' });
+    res.json({ channelUrl: YT_CHANNEL_URL, videos: YT_FALLBACK_VIDEOS, fallback: true });
   }
 });
 

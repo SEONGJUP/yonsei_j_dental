@@ -80,19 +80,56 @@ function ClinicMap() {
 
   useEffect(() => {
     if (mapRef.current || !containerRef.current) return;
+    let cancelled = false;
+    let fallbackStarted = false;
+    let naverScript;
+    let fallbackTimer;
+
+    const startLeaflet = () => {
+      if (cancelled || fallbackStarted || !containerRef.current) return;
+      fallbackStarted = true;
+      initLeafletMap(containerRef.current)
+        .then((map) => {
+          if (!cancelled) mapRef.current = map;
+        })
+        .catch((error) => console.error('Leaflet map failed to load:', error));
+    };
 
     if (NCP_ID) {
       if (window.naver?.maps) {
-        mapRef.current = initNaverMap(containerRef.current);
+        try {
+          mapRef.current = initNaverMap(containerRef.current);
+        } catch (error) {
+          console.error('Naver map failed to initialize:', error);
+          startLeaflet();
+        }
       } else {
-        const s = document.createElement('script');
-        s.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NCP_ID}`;
-        s.onload = () => { mapRef.current = initNaverMap(containerRef.current); };
-        document.head.appendChild(s);
+        naverScript = document.createElement('script');
+        naverScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NCP_ID}`;
+        naverScript.onload = () => {
+          if (cancelled || fallbackStarted || !containerRef.current) return;
+          try {
+            mapRef.current = initNaverMap(containerRef.current);
+          } catch (error) {
+            console.error('Naver map failed to initialize:', error);
+            startLeaflet();
+          }
+        };
+        naverScript.onerror = startLeaflet;
+        document.head.appendChild(naverScript);
+        fallbackTimer = window.setTimeout(startLeaflet, 6000);
       }
     } else {
-      initLeafletMap(containerRef.current).then((m) => { mapRef.current = m; });
+      startLeaflet();
     }
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(fallbackTimer);
+      if (naverScript) naverScript.remove();
+      if (mapRef.current?.remove) mapRef.current.remove();
+      mapRef.current = null;
+    };
   }, []);
 
   return (
