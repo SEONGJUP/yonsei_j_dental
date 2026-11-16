@@ -1,140 +1,20 @@
-import { useEffect, useRef } from 'react';
-import 'leaflet/dist/leaflet.css';
 import './ClinicMap.css';
 
 const LAT = 37.5062069;
 const LNG = 126.9472485;
 const NAVER_URL =
   'https://m.place.naver.com/hospital/1710388626/location?bk_query=%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC&entry=pll&filter=location&selected_place_id=1710388626';
-const NCP_ID = import.meta.env.VITE_NAVER_CLIENT_ID;
+const OPEN_STREET_MAP_URL =
+  `https://www.openstreetmap.org/export/embed.html?bbox=126.9400%2C37.5020%2C126.9545%2C37.5105&layer=mapnik&marker=${LAT}%2C${LNG}`;
 
-// PIN 앵커: bubble(22px) + gap(4px) + dot반경(7px) = 33px (dot 중심)
-// 가로 중심: bubble 너비 ~90px → 45px
-const ANCHOR_X = 45;
-const ANCHOR_Y = 33;
-
-const PIN_HTML = `<div class="clinic-pin">
-  <div class="clinic-pin__bubble">연세제이치과</div>
-  <div class="clinic-pin__dot"></div>
-  <div class="clinic-pin__shadow"></div>
-</div>`;
-
-// ── Naver Dynamic Map (JS API) ──
-function initNaverMap(container) {
-  const { naver } = window;
-  const map = new naver.maps.Map(container, {
-    center: new naver.maps.LatLng(LAT, LNG),
-    zoom: 17,
-    zoomControl: true,
-    zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT },
-    mapTypeControl: false,
-    scaleControl: false,
-    logoControl: false,
-    mapDataControl: false,
-  });
-  new naver.maps.Marker({
-    position: new naver.maps.LatLng(LAT, LNG),
-    map,
-    icon: {
-      content: PIN_HTML,
-      size: new naver.maps.Size(90, 46),
-      anchor: new naver.maps.Point(ANCHOR_X, ANCHOR_Y),
-    },
-  });
-  return map;
-}
-
-// ── Leaflet (기본 interactive 지도) ──
-function initLeafletMap(container) {
-  return import('leaflet').then((L) => {
-    const map = L.map(container, {
-      center: [LAT, LNG],
-      zoom: 17,
-      zoomControl: false,
-      scrollWheelZoom: true,
-      dragging: true,
-      touchZoom: true,
-      doubleClickZoom: true,
-      attributionControl: false,
-    });
-    L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-      { subdomains: 'abcd', maxZoom: 19 }
-    ).addTo(map);
-    L.control.zoom({ position: 'topright' }).addTo(map);
-    const icon = L.divIcon({
-      className: '',
-      html: PIN_HTML,
-      iconSize: [90, 46],
-      iconAnchor: [ANCHOR_X, ANCHOR_Y],
-    });
-    L.marker([LAT, LNG], { icon }).addTo(map);
-    return map;
-  });
-}
-
-// ── 우선순위: VITE_NAVER_CLIENT_ID 있으면 Naver Dynamic, 없으면 Leaflet ──
 function ClinicMap() {
-  const containerRef = useRef(null);
-  const mapRef       = useRef(null);
-
-  useEffect(() => {
-    if (mapRef.current || !containerRef.current) return;
-    let cancelled = false;
-    let fallbackStarted = false;
-    let naverScript;
-    let fallbackTimer;
-
-    const startLeaflet = () => {
-      if (cancelled || fallbackStarted || !containerRef.current) return;
-      fallbackStarted = true;
-      initLeafletMap(containerRef.current)
-        .then((map) => {
-          if (!cancelled) mapRef.current = map;
-        })
-        .catch((error) => console.error('Leaflet map failed to load:', error));
-    };
-
-    if (NCP_ID) {
-      if (window.naver?.maps) {
-        try {
-          mapRef.current = initNaverMap(containerRef.current);
-        } catch (error) {
-          console.error('Naver map failed to initialize:', error);
-          startLeaflet();
-        }
-      } else {
-        naverScript = document.createElement('script');
-        naverScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NCP_ID}`;
-        naverScript.onload = () => {
-          if (cancelled || fallbackStarted || !containerRef.current) return;
-          try {
-            mapRef.current = initNaverMap(containerRef.current);
-          } catch (error) {
-            console.error('Naver map failed to initialize:', error);
-            startLeaflet();
-          }
-        };
-        naverScript.onerror = startLeaflet;
-        document.head.appendChild(naverScript);
-        fallbackTimer = window.setTimeout(startLeaflet, 6000);
-      }
-    } else {
-      startLeaflet();
-    }
-
-    return () => {
-      cancelled = true;
-      window.clearTimeout(fallbackTimer);
-      if (naverScript) naverScript.remove();
-      if (mapRef.current?.remove) mapRef.current.remove();
-      mapRef.current = null;
-    };
-  }, []);
-
   return (
     <div className="clinic-map-wrap">
-      <div ref={containerRef} className="clinic-map-container" />
+      <iframe
+        className="clinic-map-embed"
+        src={OPEN_STREET_MAP_URL}
+        title="연세제이치과 위치 지도"
+      />
       <a
         href={NAVER_URL}
         target="_blank"

@@ -116,7 +116,8 @@ function parseRSSItems(xml) {
 
 // YouTube RSS
 const YT_CHANNEL_ID = 'UCLcyi5GOklyvjVWpgAVzr7g';
-const YT_CHANNEL_URL = `https://www.youtube.com/channel/${YT_CHANNEL_ID}`;
+const YT_CHANNEL_HANDLE = '%EC%B9%98%EC%95%84%EC%A7%80%ED%82%B4%EC%9D%B4';
+const YT_CHANNEL_URL = `https://www.youtube.com/@${YT_CHANNEL_HANDLE}/shorts`;
 let ytCache = { data: null, timestamp: 0 };
 const YT_CACHE_TTL = 30 * 60 * 1000; // 30분
 const YT_FALLBACK_VIDEOS = [
@@ -168,12 +169,60 @@ function parseYTFeed(xml) {
   return entries;
 }
 
+function parseKoreanViewCount(value) {
+  const match = value.match(/조회수\s+([\d.,]+)(천|만)?회/);
+  if (!match) return 0;
+
+  const count = parseFloat(match[1].replace(/,/g, ''));
+  if (Number.isNaN(count)) return 0;
+  if (match[2] === '만') return Math.round(count * 10000);
+  if (match[2] === '천') return Math.round(count * 1000);
+  return Math.round(count);
+}
+
+function parseYouTubeShortsPage(html) {
+  const videos = [];
+  const seen = new Set();
+  const shortsRegex = /"shortsLockupViewModel":\{"entityId":"shorts-shelf-item-([^"]+)","accessibilityText":"([^"]+?)","onTap":\{"innertubeCommand":\{[\s\S]*?"reelWatchEndpoint":\{"videoId":"([^"]+)"/g;
+  let match;
+
+  while ((match = shortsRegex.exec(html)) !== null && videos.length < 3) {
+    const videoId = match[3] || match[1];
+    if (!videoId || seen.has(videoId)) continue;
+    seen.add(videoId);
+
+    const accessibilityText = match[2];
+    const title = accessibilityText.replace(/,\s*조회수[\s\S]*$/, '').trim();
+    videos.push({
+      videoId,
+      title,
+      published: '',
+      views: parseKoreanViewCount(accessibilityText),
+      thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+      link: `https://www.youtube.com/shorts/${videoId}`,
+      isShort: true,
+    });
+  }
+
+  return videos;
+}
+
 app.get('/api/youtube', async (req, res) => {
   try {
     const now = Date.now();
     if (ytCache.data && (now - ytCache.timestamp) < YT_CACHE_TTL) return res.json(ytCache.data);
-    const xml = await fetchRSS(`https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`);
-    const videos = parseYTFeed(xml);
+    let videos = [];
+    try {
+      const xml = await fetchRSS(`https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`);
+      videos = parseYTFeed(xml);
+    } catch (rssError) {
+      console.warn('YouTube RSS unavailable:', rssError.message);
+    }
+
+    if (videos.length === 0) {
+      const shortsPage = await fetchRSS(`https://www.youtube.com/@${YT_CHANNEL_HANDLE}/shorts`);
+      videos = parseYouTubeShortsPage(shortsPage);
+    }
     if (videos.length === 0) throw new Error('YouTube feed did not contain video entries');
     const result = { channelUrl: YT_CHANNEL_URL, videos };
     ytCache = { data: result, timestamp: now };

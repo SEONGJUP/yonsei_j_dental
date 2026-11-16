@@ -67,7 +67,7 @@ function SkeletonCard() {
 
 function YouTube() {
   const [videos, setVideos] = useState([]);
-  const [channelUrl, setChannelUrl] = useState('https://www.youtube.com/channel/UCLcyi5GOklyvjVWpgAVzr7g');
+  const [channelUrl, setChannelUrl] = useState('https://www.youtube.com/@%EC%B9%98%EC%95%84%EC%A7%80%ED%82%B4%EC%9D%B4/shorts');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
