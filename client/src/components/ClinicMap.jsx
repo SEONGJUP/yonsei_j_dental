@@ -4,15 +4,14 @@ const LAT = 37.5062069;
 const LNG = 126.9472485;
 const NAVER_URL =
   'https://m.place.naver.com/hospital/1710388626/location?bk_query=%EC%97%B0%EC%84%B8%EC%A0%9C%EC%9D%B4%EC%B9%98%EA%B3%BC&entry=pll&filter=location&selected_place_id=1710388626';
-const OPEN_STREET_MAP_URL =
-  `https://www.openstreetmap.org/export/embed.html?bbox=126.9400%2C37.5020%2C126.9545%2C37.5105&layer=mapnik&marker=${LAT}%2C${LNG}`;
+const GOOGLE_MAP_URL = `https://www.google.com/maps?q=${LAT},${LNG}&z=16&output=embed`;
 
 function ClinicMap() {
   return (
     <div className="clinic-map-wrap">
       <iframe
         className="clinic-map-embed"
-        src={OPEN_STREET_MAP_URL}
+        src={GOOGLE_MAP_URL}
         title="연세제이치과 위치 지도"
       />
       <a
