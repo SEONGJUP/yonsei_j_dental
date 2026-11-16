@@ -169,14 +169,16 @@ function parseYTFeed(xml) {
   return entries;
 }
 
-function parseKoreanViewCount(value) {
-  const match = value.match(/조회수\s+([\d.,]+)(천|만)?회/);
+function parseViewCount(value) {
+  const match = value.match(/(?:조회수\s+|,\s*)([\d.,]+)\s*(천|만|thousand|million)?\s*(?:회|views?)/i);
   if (!match) return 0;
 
   const count = parseFloat(match[1].replace(/,/g, ''));
   if (Number.isNaN(count)) return 0;
   if (match[2] === '만') return Math.round(count * 10000);
   if (match[2] === '천') return Math.round(count * 1000);
+  if (match[2]?.toLowerCase() === 'million') return Math.round(count * 1000000);
+  if (match[2]?.toLowerCase() === 'thousand') return Math.round(count * 1000);
   return Math.round(count);
 }
 
@@ -192,12 +194,14 @@ function parseYouTubeShortsPage(html) {
     seen.add(videoId);
 
     const accessibilityText = match[2];
-    const title = accessibilityText.replace(/,\s*조회수[\s\S]*$/, '').trim();
+    const title = accessibilityText
+      .replace(/,\s*(?:조회수\s+)?[\d.,]+\s*(?:천|만|thousand|million)?\s*(?:회|views?)[\s\S]*$/i, '')
+      .trim();
     videos.push({
       videoId,
       title,
       published: '',
-      views: parseKoreanViewCount(accessibilityText),
+      views: parseViewCount(accessibilityText),
       thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
       link: `https://www.youtube.com/shorts/${videoId}`,
       isShort: true,
